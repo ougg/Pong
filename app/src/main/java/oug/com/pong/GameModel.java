@@ -145,7 +145,6 @@ public class GameModel {
         }
 
 
-
         if((ballX<=0 || ballX>= screenWidth - ballDiameter)&& !serviceDelay){
             if(ballX<=0)
                 scoreB++;
@@ -154,9 +153,6 @@ public class GameModel {
 
             newService();
         }
-
-
-
     }
 
     public void newGame(){
@@ -239,6 +235,10 @@ public class GameModel {
 
     public void setPaddleBY(int value){
         paddleBY=value;
+        if(paddleBY<0)
+            paddleBY=0;
+        if(paddleBY+paddleHeight> screenHeight)
+            paddleBY= screenHeight -paddleHeight;
     }
     public void setPaddleWidth(int value){
         paddleWidth=value;
