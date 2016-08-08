@@ -13,6 +13,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     GameModel gameModel;
     Thread gameThread = null;
     boolean isRunning=false;
+    int previousY=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,14 +58,27 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
-        gameModel.setPaddleBY((int) motionEvent.getY());
+        switch(motionEvent.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                //set the starting position
+                previousY=(int)motionEvent.getY();
+            break;
+            case  MotionEvent.ACTION_MOVE:
+                //calculate the distance moved (and multiply by 1.5) and move a paddle
+                gameModel.setPaddleBY(gameModel.getPaddleBY()+(int) 1.5*((int) motionEvent.getY()-previousY));
+                //set current position as a starting position for next move event
+                previousY=(int)motionEvent.getY();
+            break;
+            default:
+                break;
+
+        }
         return true;
     }
 
     @Override
     public void run() {
         while(isRunning){
-            Log.i("testing",gameModel.getBallX() + ","+gameModel.getBallY());
             gameModel.moveBall();
             gameModel.AI();
             gameModel.checkCollisions();
