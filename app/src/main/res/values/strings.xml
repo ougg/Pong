@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Pong</string>
+    <string name="play">Play</string>
+    <string name="classicMode">Classic</string>
+    <string name="survivalMode">Survival</string>
+    <string name="difficultyEasy">Easy</string>
+    <string name="difficultyMedium">Medium</string>
+    <string name="difficultyHard">Hard</string>
 </resources>
