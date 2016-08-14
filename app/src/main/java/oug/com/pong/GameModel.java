@@ -16,7 +16,7 @@ public class GameModel {
         this.screenHeight =screenHeight;
         ballDiameter=screenHeight/20;
         paddleHeight=screenHeight/5;
-        paddleWidth=paddleHeight/5;
+        paddleWidth=paddleHeight/6;
     }
 
     public void moveBall(){
@@ -56,7 +56,6 @@ public class GameModel {
 
         //PADDLE A COLLISION
         if(ballX<=paddleWidth && ballY+ ballDiameter >=paddleAY && ballY <= paddleAY+paddleHeight){
-            //System.out.println("kolizja " + "0," +paddleAY + " " + ballX +","+ballY);
 
             if(service){
                 ballXAcceleration*=2;
@@ -72,7 +71,6 @@ public class GameModel {
                 if(ballYAcceleration*ballYSpeed>-1&&ballYAcceleration<0)
                     ballYAcceleration=-1/(double)ballYSpeed;
 
-                //System.out.println("płaska " + ballYAcceleration + " " + Math.round(ballYAcceleration*ballYSpeed));
                 paddleCollided=true;
                 return;
             }
@@ -81,28 +79,22 @@ public class GameModel {
                 if(Math.pow(paddleWidth-ballX- ballDiameter /2, 2)+Math.pow(paddleAY-ballY- ballDiameter /2, 2)<=Math.pow(ballDiameter /2, 2)){
                     ballXAcceleration*=-1;
                     ballYAcceleration=-1*maxYSpeed;
-                    //System.out.println("kant g");
                     paddleCollided=true;
                     return;
                 }
-
             }
             else{
                 if(Math.pow(paddleWidth-ballX- ballDiameter /2, 2)+Math.pow(paddleAY+paddleHeight-ballY- ballDiameter /2, 2)<=Math.pow(ballDiameter /2, 2)){
                     ballXAcceleration*=-1;
                     ballYAcceleration=maxYSpeed;
-                    //System.out.println("kant d "+ballYAcceleration);
                     paddleCollided=true;
                     return;
                 }
             }
         }
 
-
-
         //PADDLE B COLLISION
         if(ballX>= screenWidth -paddleWidth- ballDiameter && ballY+ ballDiameter >=paddleBY && ballY <= paddleBY+paddleHeight){
-            //System.out.println("kolizja " + "690," +paddleBY + " " + ballX +","+ballY);
 
             if(service){
                 ballXAcceleration*=2;
@@ -118,7 +110,6 @@ public class GameModel {
                 if(ballYAcceleration*ballYSpeed>-1&&ballYAcceleration<0)
                     ballYAcceleration=-1/(double)ballYSpeed;
 
-                //System.out.println("płaska " + ballYAcceleration + " " + Math.round(ballYAcceleration*ballYSpeed));
                 paddleCollided=true;
                 return;
             }
@@ -127,23 +118,19 @@ public class GameModel {
                 if(Math.pow(screenWidth -paddleWidth-ballX- ballDiameter /2, 2)+Math.pow(paddleBY-ballY- ballDiameter /2, 2)<=Math.pow(ballDiameter /2, 2)){
                     ballXAcceleration*=-1;
                     ballYAcceleration=-1*maxYSpeed;
-                    //System.out.println("kant g");
                     paddleCollided=true;
                     return;
                 }
             }
             else{
-                //System.out.println("tu");
                 if(Math.pow(screenWidth -paddleWidth-ballX- ballDiameter /2, 2)+Math.pow(paddleBY+paddleHeight-ballY- ballDiameter /2, 2)<=Math.pow(ballDiameter /2, 2)){
                     ballXAcceleration*=-1;
                     ballYAcceleration=maxYSpeed;
-                    //System.out.println("kant d "+ballYAcceleration);
                     paddleCollided=true;
                     return;
                 }
             }
         }
-
 
         if((ballX<=0 || ballX>= screenWidth - ballDiameter)&& !serviceDelay){
             if(ballX<=0)
@@ -219,14 +206,14 @@ public class GameModel {
 
     public void setDifficulty(int diff){
         switch(diff){
-            case 1:
-                setSpeed(7);
+            case GameModes.EASY:
+                setSpeed(10);
                 break;
-            case 2:
-                setSpeed(9);
+            case GameModes.MEDIUM:
+                setSpeed(13);
                 break;
-            case 3:
-                setSpeed(12);
+            case GameModes.HARD:
+                setSpeed(17);
                 break;
             default:
                 break;

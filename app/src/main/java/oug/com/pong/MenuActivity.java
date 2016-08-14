@@ -1,5 +1,6 @@
 package oug.com.pong;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.widget.ViewFlipper;
 
 public class MenuActivity extends AppCompatActivity {
     ViewFlipper viewFlipper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,30 +19,36 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void playClicked(View view){
-        Log.i("testing","play clicked");
         viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(findViewById(R.id.selectMode)));
     }
     public void showDifficultyLevels(View view){
         viewFlipper.setDisplayedChild(viewFlipper.indexOfChild(findViewById(R.id.selectDifficulty)));
     }
     public void newSurvivalGame(View view){
-
+        startNewGame(GameModes.SURVIVAL,-1);
     }
 
     public void newClassicGame(View view){
         switch(view.getId()){
             case R.id.difficultyEasyButton:
-                Log.i("testing","easy");
+                startNewGame(GameModes.CLASSIC,GameModes.EASY);
                 break;
             case R.id.difficultyMediumButton:
-                Log.i("testing","medium");
+                startNewGame(GameModes.CLASSIC,GameModes.MEDIUM);
                 break;
             case R.id.difficultyHardButton:
-                Log.i("testing","hard");
+                startNewGame(GameModes.CLASSIC,GameModes.HARD);
                 break;
             default:
                 break;
         }
+    }
+
+    public void startNewGame(int mode, int difficulty){
+        Intent intent = new Intent(this,GameActivity.class);
+        intent.putExtra("GAME_MODE",mode);
+        intent.putExtra("GAME_DIFFICULTY",difficulty);
+        startActivity(intent);
     }
 
 }

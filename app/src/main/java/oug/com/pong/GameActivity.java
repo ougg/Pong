@@ -1,5 +1,6 @@
 package oug.com.pong;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     Thread gameThread = null;
     boolean isRunning=false;
     int previousY=0;
+    int mode, difficulty;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,11 +26,19 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         int width = size.x;
         int height = size.y;
         gameModel = new GameModel(width,height);
-        gameView = new GameView(this,gameModel);
+
+        Intent intent = getIntent();
+        mode = intent.getIntExtra("GAME_MODE",-1);
+        difficulty=intent.getIntExtra("GAME_DIFFICULTY",-1);
+        gameView = new GameView(this,gameModel,mode);
         gameView.setOnTouchListener(this);
         setContentView(gameView);
 
-        gameModel.setSpeed(7);
+        if(mode == GameModes.CLASSIC)
+            gameModel.setDifficulty(difficulty);
+        else
+            gameModel.setSpeed(6);
+
         gameModel.newGame();
 
     }
@@ -78,7 +88,26 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
     @Override
     public void run() {
+        long startTime = System.currentTimeMillis();
         while(isRunning){
+            if(mode == GameModes.CLASSIC && (gameModel.getScoreA()>9||gameModel.getScoreB()>9)){
+                isRunning=false;
+                //gameOver();
+            }
+
+            if(mode==GameModes.SURVIVAL){
+                //speed up the game every 10 seconds
+                if(System.currentTimeMillis()-startTime>=10000){
+                    gameModel.setSpeed(gameModel.getSpeed()+2);
+                    startTime = System.currentTimeMillis();
+                }
+
+                //if player lost a point, end game
+                if(gameModel.getScoreA()>0){
+                    isRunning=false;
+                    //gameOver();
+                }
+            }
             gameModel.moveBall();
             gameModel.AI();
             gameModel.checkCollisions();
