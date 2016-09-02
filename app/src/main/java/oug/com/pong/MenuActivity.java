@@ -49,6 +49,7 @@ public class MenuActivity extends AppCompatActivity {
         intent.putExtra("GAME_MODE",mode);
         intent.putExtra("GAME_DIFFICULTY",difficulty);
         startActivity(intent);
+        finish();
     }
 
 }

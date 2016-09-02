@@ -165,7 +165,6 @@ public class GameModel {
                 catch (InterruptedException e) {
                 }
 
-
                 ballX=(screenWidth - ballDiameter)/2;
                 ballY=(screenHeight - ballDiameter)/2;
                 if(playerStarts)
@@ -201,7 +200,6 @@ public class GameModel {
         ballXSpeed=speed;
         ballYSpeed=ballXSpeed/3;
         paddleSpeed=ballXSpeed*4/9;
-        //System.out.println(ballXSpeed + " " + ballYSpeed);
     }
 
     public void setDifficulty(int diff){

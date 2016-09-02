@@ -6,4 +6,12 @@
     <string name="difficultyEasy">Easy</string>
     <string name="difficultyMedium">Medium</string>
     <string name="difficultyHard">Hard</string>
+    <string name="gameWon">Congratulations, you\'ve won!</string>
+    <string name="gameLost">You\'ve lost!</string>
+    <string name="cont">Continue</string>
+    <string name="youveLasted">"Congratulations!\nYou\'ve lasted</string>
+    <string name="enterName">"Enter your name"</string>
+    <string name="highscore">"High score"</string>
+    <string name="error">"Sorry, something went wrong"</string>
+
 </resources>
