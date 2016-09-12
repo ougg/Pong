@@ -205,19 +205,26 @@ public class GameModel {
     public void setDifficulty(int diff){
         switch(diff){
             case GameModes.EASY:
-                setSpeed(10);
+                setSpeed(screenWidth/85);
                 break;
             case GameModes.MEDIUM:
-                setSpeed(13);
+                setSpeed(screenWidth/70);
                 break;
             case GameModes.HARD:
-                setSpeed(17);
+                setSpeed(screenWidth/55);
                 break;
             default:
                 break;
         }
     }
 
+    public void setPaddleAY(int value){
+        paddleAY=value;
+        if(paddleAY<0)
+            paddleAY=0;
+        if(paddleAY+paddleHeight> screenHeight)
+            paddleAY= screenHeight -paddleHeight;
+    }
     public void setPaddleBY(int value){
         paddleBY=value;
         if(paddleBY<0)
@@ -225,20 +232,25 @@ public class GameModel {
         if(paddleBY+paddleHeight> screenHeight)
             paddleBY= screenHeight -paddleHeight;
     }
-    public void setPaddleWidth(int value){
-        paddleWidth=value;
+
+    public void setFramesCount(int value){framesCount=value;}
+    public void setStartTime(long value){startTime=value;}
+    public void setScores(int valueA,int valueB){scoreA=valueA; scoreB=valueB;}
+    public void setCoordinates(int[] coords){
+        ballX=coords[0];
+        ballY=coords[1];
+        setPaddleAY(coords[2]);
+        setPaddleBY(coords[3]);
     }
-    public void setPaddleHeight(int value){
-        paddleHeight=value;
+    public void setFlags(boolean[] flags){
+        playerStarts=flags[0];
+        paddleCollided=flags[1];
+        serviceDelay=flags[2];
+        service=flags[3];
     }
-    public void setBallDiameter(int value){
-        ballDiameter =value;
-    }
-    public void setScreenWidth(int value){
-        screenWidth =value;
-    }
-    public void setScreenHeight(int value){
-        screenHeight =value;
+    public void setAcceleration(double[] acc){
+        ballXAcceleration=acc[0];
+        ballYAcceleration=acc[1];
     }
 
     public int getBallX(){
@@ -280,5 +292,10 @@ public class GameModel {
     public long getTime(){
         return System.currentTimeMillis()-startTime;
     }
+    public long getStartTime(){return startTime;}
+    public int[] getCoordinates(){return new int[]{ballX,ballY,paddleAY,paddleBY};}
+    public int getFramesCount(){return framesCount;}
+    public double[] getAcceleration(){return new double[]{ballXAcceleration,ballYAcceleration};}
+    public boolean[] getFlags(){return new boolean[]{playerStarts, paddleCollided, serviceDelay, service};}
 }
 

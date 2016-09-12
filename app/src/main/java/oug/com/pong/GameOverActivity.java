@@ -128,15 +128,14 @@ public class GameOverActivity extends AppCompatActivity {
         TextView scoresView = (TextView) findViewById(R.id.scoresView);
 
 
-        for(String[] record:highScore){
-            namesView.append(record[0]+"\n");
+        for(String[] record:highScore) {
+            namesView.append(record[0] + "\n");
             long time = Long.parseLong(record[1]);
-            if(time>0)
-                scoresView.append(String.format("%02d:%02d:%03d \n", time/60000,(time/1000)%60,time%1000 ));
+            if (time > 0)
+                scoresView.append(String.format("%02d:%02d:%03d \n", time / 60000, (time / 1000) % 60, time % 1000));
             else
                 scoresView.append("---\n");
         }
-
     }
 
     public void continueToMain(View view){
@@ -144,5 +143,4 @@ public class GameOverActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
 }

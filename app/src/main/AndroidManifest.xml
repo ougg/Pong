@@ -10,7 +10,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".GameActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape"
+            android:configChanges="orientation"/>
         <activity
             android:name=".MenuActivity"
             android:screenOrientation="landscape">
@@ -20,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".GameOverActivity"
             android:screenOrientation="landscape"/>
     </application>

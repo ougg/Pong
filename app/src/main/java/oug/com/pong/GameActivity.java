@@ -26,33 +26,46 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         display.getSize(size);
         int width = size.x;
         int height = size.y;
-        gameModel = new GameModel(width,height);
+        gameModel = new GameModel(width, height);
 
         Intent intent = getIntent();
-        mode = intent.getIntExtra("GAME_MODE",-1);
-        difficulty=intent.getIntExtra("GAME_DIFFICULTY",-1);
+        mode = intent.getIntExtra("GAME_MODE", -1);
+        difficulty = intent.getIntExtra("GAME_DIFFICULTY", -1);
 
         //check if extras are ok
-        if(mode==-1 || (difficulty==-1 && mode==GameModes.CLASSIC)){
+        if (mode == -1 || (difficulty == -1 && mode == GameModes.CLASSIC)) {
             Toast.makeText(getApplicationContext(), R.string.error, Toast.LENGTH_SHORT).show();
             finish();
         }
 
-        gameView = new GameView(this,gameModel,mode);
+        gameView = new GameView(this, gameModel, mode);
         gameView.setOnTouchListener(this);
         setContentView(gameView);
 
-        if(mode == GameModes.CLASSIC)
-            gameModel.setDifficulty(difficulty);
-        else
-            gameModel.setSpeed(6);
+        //check if its the first instance of this activity - if so, start new game
+        if(savedInstanceState==null) {
+            if (mode == GameModes.CLASSIC)
+                gameModel.setDifficulty(difficulty);
+            else
+                gameModel.setSpeed(gameModel.getScreenWidth() / 75);
 
-        gameModel.newGame();
+            gameModel.newGame();
+        }
+        else{
+            gameModel.setSpeed(savedInstanceState.getInt("SPEED"));
+            gameModel.setScores(savedInstanceState.getInt("SCOREA"),savedInstanceState.getInt("SCOREB"));
+            gameModel.setStartTime(savedInstanceState.getInt("STARTTIME"));
+            gameModel.setCoordinates(savedInstanceState.getIntArray("COORDS"));
+            gameModel.setFramesCount(savedInstanceState.getInt("FRAMESCOUNT"));
+            gameModel.setFlags(savedInstanceState.getBooleanArray("FLAGS"));
+            gameModel.setAcceleration(savedInstanceState.getDoubleArray("ACCELERATION"));
+        }
 
     }
 
     @Override
     protected void onPause() {
+        Log.i("testing","onpause");
         super.onPause();
         isRunning=false;
         while(true){
@@ -69,11 +82,23 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i("testing","onresume");
         isRunning=true;
         gameThread = new Thread(this);
         gameThread.start();
     }
-
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putInt("SPEED",gameModel.getSpeed());
+        savedInstanceState.putInt("SCOREA",gameModel.getScoreA());
+        savedInstanceState.putInt("SCOREB",gameModel.getScoreB());
+        savedInstanceState.putLong("STARTTIME",gameModel.getStartTime());
+        savedInstanceState.putIntArray("COORDS",gameModel.getCoordinates());
+        savedInstanceState.putInt("FRAMESCOUNT",gameModel.getFramesCount());
+        savedInstanceState.putBooleanArray("FLAGS",gameModel.getFlags());
+        savedInstanceState.putDoubleArray("ACCELERATION",gameModel.getAcceleration());
+        super.onSaveInstanceState(savedInstanceState);
+    }
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         switch(motionEvent.getAction()){
