@@ -1,5 +1,7 @@
 package oug.com.pong;
 
+import android.util.Log;
+
 public class GameModel {
     private int ballXSpeed,ballYSpeed,paddleSpeed,maxYSpeed=2;
     private int scoreA=0,scoreB=0;
@@ -200,18 +202,19 @@ public class GameModel {
         ballXSpeed=speed;
         ballYSpeed=ballXSpeed/3;
         paddleSpeed=ballXSpeed*4/9;
+        Log.i("testing",speed+"");
     }
 
     public void setDifficulty(int diff){
-        switch(diff){
+        switch(diff) {
             case GameModes.EASY:
-                setSpeed(screenWidth/85);
+                setSpeed(screenWidth / 85);
                 break;
             case GameModes.MEDIUM:
-                setSpeed(screenWidth/70);
+                setSpeed(screenWidth / 70);
                 break;
             case GameModes.HARD:
-                setSpeed(screenWidth/55);
+                setSpeed(screenWidth / 55);
                 break;
             default:
                 break;

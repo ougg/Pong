@@ -65,7 +65,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
 
     @Override
     protected void onPause() {
-        Log.i("testing","onpause");
+        //Log.i("testing","onpause");
         super.onPause();
         isRunning=false;
         while(true){
@@ -82,7 +82,7 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i("testing","onresume");
+        //Log.i("testing","onresume");
         isRunning=true;
         gameThread = new Thread(this);
         gameThread.start();
@@ -152,6 +152,12 @@ public class GameActivity extends AppCompatActivity implements View.OnTouchListe
         Intent intent = new Intent(this,GameOverActivity.class);
         intent.putExtra("GAME_WON",gameWon);
         intent.putExtra("TIME",time);
+        startActivity(intent);
+        finish();
+    }
+
+    public void onBackPressed(){
+        Intent intent = new Intent(this,MenuActivity.class);
         startActivity(intent);
         finish();
     }

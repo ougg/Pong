@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <ViewFlipper
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/viewFlipper"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/mainMenu"
+            android:background="#000000">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/play"
+                android:id="@+id/playButton"
+                android:textColor="#FFFFFF"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="40dp"
+                android:clickable="true"
+                android:onClick="playClicked"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/selectMode"
+            android:background="#000000"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/classicMode"
+                android:id="@+id/classicModeButton"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:clickable="true"
+                android:onClick="showDifficultyLevels"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/survivalMode"
+                android:id="@+id/survivalModeButton"
+                android:layout_below="@+id/classicModeButton"
+                android:textColor="#FFFFFF"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:onClick="newSurvivalGame"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/selectDifficulty"
+            android:background="#000000"
+            >
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/difficultyEasy"
+                android:id="@+id/difficultyEasyButton"
+                android:layout_above="@+id/difficultyMediumButton"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="20dp"
+                android:layout_centerHorizontal="true"
+                android:clickable="true"
+                android:onClick="newClassicGame"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/difficultyMedium"
+                android:id="@+id/difficultyMediumButton"
+                android:textColor="#FFFFFF"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:clickable="true"
+                android:onClick="newClassicGame"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/difficultyHard"
+                android:id="@+id/difficultyHardButton"
+                android:layout_below="@+id/difficultyMediumButton"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:clickable="true"
+                android:onClick="newClassicGame"/>
+        </RelativeLayout>
+
+    </ViewFlipper>
+
